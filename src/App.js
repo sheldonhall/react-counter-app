@@ -13,6 +13,21 @@ class App extends Component {
     ],
   }; //state is a special property in react component. A object that contains any data the component needs
 
+  //props here is passed in automagically by reject from the parent when the component is created.
+  //Could do object destructuring into method parameters so don't have to be calling props.* all the time
+  constructor(props) {
+    super(props); //super must be called
+    console.log("App - in constructor", this.props); //can't use props unless it was passed
+  }
+
+  //This is called after our component is rendered into the DOM
+  //good place to make ajax calls to get data from the server
+  componentDidMount() {
+    console.log("App - mounted");
+    //ajax call
+    this.setState({});
+  }
+
   handleDelete = (counterId) => {
     const counters = this.state.counters.filter((c) => c.id !== counterId);
     this.setState({ counters }); //{counters} is a simplication of {counters: counters} cause key and value is the same
@@ -46,6 +61,8 @@ class App extends Component {
   };
 
   render() {
+    //react element is created and all it's children are also rendered recursively
+    console.log("App - rendered");
     return (
       <React.Fragment>
         <NavBar totalCounters={this.state.counters.length} />
